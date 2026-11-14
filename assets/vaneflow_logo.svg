@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">VaneFlow</title>
+  <desc id="desc">Monograma VF em selo verde sálvia, sobre fundo creme, com detalhe terracota.</desc>
+  <rect width="800" height="800" rx="72" fill="#F6F0E6"/>
+
+  <circle cx="400" cy="332" r="224" fill="#7C8A70"/>
+  <circle cx="400" cy="332" r="204" fill="none" stroke="#E9DFD0" stroke-width="3"/>
+
+  <text x="400" y="404" text-anchor="middle" fill="#F6F0E6" font-family="Georgia, 'Times New Roman', serif" font-size="184" font-style="italic" letter-spacing="-12">VF</text>
+
+  <path d="M566 190 C580 172 604 167 622 176 C611 195 590 207 566 207 C567 201 568 195 566 190Z" fill="#C27B5A"/>
+  <path d="M570 207 C581 194 594 184 610 178" fill="none" stroke="#F6F0E6" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="561" cy="211" r="4" fill="#E9DFD0"/>
+
+  <text x="400" y="650" text-anchor="middle" fill="#493B32" font-family="Georgia, 'Times New Roman', serif" font-size="72" letter-spacing="1">VaneFlow</text>
+  <path d="M275 690 H350 M450 690 H525" stroke="#C27B5A" stroke-width="3" stroke-linecap="round"/>
+  <path d="M386 690 C394 681 406 681 414 690 C406 699 394 699 386 690Z" fill="#7C8A70"/>
+</svg>
