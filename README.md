@@ -1,106 +1,124 @@
-# VaneFlow — P2 Programação Mobile (Flutter + Firebase)
+# VaneFlow
 
-Aplicativo de gerenciamento de tarefas pessoais feito em Flutter.
-Cada usuário se cadastra, faz login por e-mail e senha e gerencia as próprias tarefas, que ficam salvas na nuvem (Firebase Realtime Database).
+Aplicativo mobile de organização de tarefas desenvolvido com Flutter e Firebase como projeto da disciplina de Desenvolvimento de Aplicativo Mobile.
+
+O VaneFlow permite criar uma conta, organizar tarefas por data e prioridade, acompanhar o que está pendente ou concluído e escolher entre os temas claro e escuro.
 
 ## Funcionalidades
 
-- Cadastro (nome, e-mail, senha), login e logout (Firebase Authentication)
-- Sessão mantida ao fechar e abrir o app
-- Tela inicial com o nome do usuário e a contagem de tarefas (cadastradas, pendentes, concluídas)
-- Menu lateral (Drawer): Início, Minhas tarefas, Configurações, Sobre o aplicativo e Sair, com nome e e-mail do usuário
-- Cadastro, consulta, edição e exclusão de tarefas (título, descrição, vencimento, prioridade, situação)
-- Listagem com ListView, cores e ícones por prioridade, filtro Todas/Pendentes/Concluídas
-- Dados em tempo real com listeners (`onValue`), vinculados ao usuário logado (`tarefas/{uid}`)
-- Tema claro/escuro salvo com SharedPreferences e aplicado em todas as telas
-
-## Tecnologias
-
-Flutter, Dart, Firebase Authentication, Firebase Realtime Database, SharedPreferences.
-
-## Estrutura do projeto
-
-```
-lib/
-├── main.dart                      # inicialização, rotas, tema e AuthGate
-├── firebase_options.dart          # gerado pelo flutterfire configure
-├── models/       usuario.dart, tarefa.dart
-├── screens/      login, cadastro_usuario, home, tarefas,
-│                 cadastro_tarefa, detalhes_tarefa, configuracoes, sobre
-├── services/     auth_service, firebase_service, preferences_service
-├── widgets/      drawer_menu, prioridade_badge
-├── themes/       app_theme.dart
-└── utils/        helpers.dart
-```
-
-## Como o banco guarda os dados
-
-```
-usuarios/{uid}      -> nome, email
-tarefas/{uid}/{id}  -> titulo, descricao, dataVencimento, prioridade, concluida
-```
-
-As regras (`database.rules.json`) só permitem ler e escrever em `usuarios/{uid}` e `tarefas/{uid}` quando o `uid` for o do usuário logado. Assim, cada usuário só vê e altera as próprias tarefas.
-
-## Como configurar e executar
-
-### 1. Pré-requisitos
-- Flutter instalado (`flutter doctor` sem erros)
-- Conta Google
-- Node.js instalado (para o Firebase CLI)
-
-### 2. Instalar as dependências
-```
-flutter pub get
-```
-
-### 3. Configurar o Firebase
-1. Acesse https://console.firebase.google.com e clique em **Adicionar projeto**.
-2. Em **Authentication > Método de login**, ative **E-mail/senha**.
-3. Em **Realtime Database**, clique em **Criar banco de dados** (modo bloqueado).
-4. Na aba **Regras** do Realtime Database, cole o conteúdo de `database.rules.json` e clique em **Publicar**.
-
-Este código já contém arquivos de configuração Firebase para o projeto usado no desenvolvimento. Para conectar a outro projeto Firebase, execute os comandos abaixo na pasta do app e selecione as plataformas desejadas:
-
-```
-npm install -g firebase-tools
-firebase login
-dart pub global activate flutterfire_cli
-flutterfire configure
-```
-O comando atualiza `lib/firebase_options.dart`. Para Android, também baixe o `google-services.json` do projeto Firebase e coloque-o em `android/app/`.
-
-### 4. Executar
-```
-flutter run
-```
-
-## Problemas comuns
-
-- **Erro de `minSdkVersion` no Android:** em `android/app/build.gradle` (ou `build.gradle.kts`) coloque `minSdk = 23`.
-- **Tarefas não aparecem / erro de permissão:** confira se as regras do passo 4 foram publicadas e se o banco foi criado.
-- **`firebase_options.dart` não encontrado:** rode `flutterfire configure` na pasta do projeto.
+- Cadastro, login e saída de conta com Firebase Authentication (e-mail e senha).
+- Sessão do usuário acompanhada pelo Firebase Authentication.
+- Cadastro, visualização, edição, conclusão e exclusão de tarefas.
+- Tarefas com título, descrição, vencimento, prioridade e situação.
+- Tela inicial com resumo e seções para tarefas atrasadas, de hoje e próximas.
+- Lista com filtros para todas, pendentes e concluídas.
+- Atualização das tarefas em tempo real usando Firebase Realtime Database.
+- Tema claro e escuro, com a preferência salva localmente no aparelho.
+- Telas de início, tarefas, configurações e informações do aplicativo.
 
 ## Capturas de tela
 
-Adicione as capturas da demonstração em `docs/capturas/`:
+As imagens abaixo ficam em [`docs/capturas`](docs/capturas/).
 
-- Login e cadastro
-- Tela inicial
-- Drawer
-- Lista de tarefas
-- Cadastro/edição de tarefa
-- Detalhes da tarefa
-- Configurações (tema claro e escuro)
-- Dados no Firebase Realtime Database
+| Login | Tela inicial |
+|---|---|
+| ![Tela de login](docs/capturas/01-login.png) | ![Tela inicial](docs/capturas/02-inicio.png) |
 
-## Roteiro do vídeo de demonstração
+| Lista de tarefas | Tema escuro |
+|---|---|
+| ![Lista de tarefas](docs/capturas/03-lista-tarefas.png) | ![Aplicativo com tema escuro](docs/capturas/04-tema-escuro.png) |
 
-1. Cadastro de um usuário
-2. Login com e-mail e senha
-3. Cadastro de pelo menos duas tarefas
-4. Edição e exclusão de uma tarefa
-5. Visualização das tarefas no ListView
-6. Logout e login novamente
-7. Troca para o tema escuro e reabertura do app
-8. Dados no Firebase Realtime Database (console, aba Dados)
+## Tecnologias
+
+- Flutter e Dart
+- Firebase Core
+- Firebase Authentication
+- Firebase Realtime Database
+- SharedPreferences
+
+## Organização do código
+
+```text
+lib/
+├── main.dart
+├── firebase_options.dart
+├── models/
+│   ├── tarefa.dart
+│   └── usuario.dart
+├── screens/
+│   ├── cadastro_tarefa_screen.dart
+│   ├── cadastro_usuario_screen.dart
+│   ├── configuracoes_screen.dart
+│   ├── detalhes_tarefa_screen.dart
+│   ├── home_screen.dart
+│   ├── login_screen.dart
+│   ├── sobre_screen.dart
+│   └── tarefas_screen.dart
+├── services/
+│   ├── auth_service.dart
+│   ├── firebase_service.dart
+│   └── preferences_service.dart
+├── themes/
+│   └── app_theme.dart
+├── utils/
+│   └── helpers.dart
+└── widgets/
+    ├── brand_mark.dart
+    ├── drawer_menu.dart
+    └── prioridade_badge.dart
+```
+
+- **`screens`** contém as telas e os formulários.
+- **`models`** define os dados de usuário e tarefa.
+- **`services`** reúne a autenticação, o acesso ao banco e as preferências locais.
+- **`themes`**, **`utils`** e **`widgets`** guardam, respectivamente, os temas, funções auxiliares e componentes reutilizáveis.
+- **`main.dart`** inicializa Firebase e preferências, configura os temas e as rotas e direciona a pessoa para a tela adequada conforme a sessão.
+
+## Estrutura dos dados no Firebase
+
+```text
+usuarios/{uid}
+  nome
+  email
+
+tarefas/{uid}/{id}
+  titulo
+  descricao
+  dataVencimento
+  prioridade
+  concluida
+```
+
+As tarefas são separadas pelo identificador (`uid`) do usuário autenticado. O arquivo [`database.rules.json`](database.rules.json) contém regras para permitir leitura e gravação somente quando a conta autenticada corresponde ao `uid` daquele caminho.
+
+## Como executar
+
+### Pré-requisitos
+
+- Flutter e Dart instalados.
+- Um dispositivo Android conectado ou um emulador iniciado.
+- Acesso ao projeto Firebase configurado para o aplicativo.
+
+### Instalar dependências e iniciar
+
+No terminal, na pasta do projeto, execute:
+
+```bash
+flutter pub get
+flutter run
+```
+
+### Configuração do Firebase
+
+O projeto contém `lib/firebase_options.dart` com as opções usadas durante o desenvolvimento. No Firebase Console, o projeto precisa ter o provedor **E-mail/senha** habilitado em Authentication e um Realtime Database criado. Publique no banco as regras de [`database.rules.json`](database.rules.json).
+
+Para conectar uma cópia do aplicativo a outro projeto Firebase, configure o Firebase CLI e o FlutterFire CLI, execute `flutterfire configure` na pasta do projeto e selecione as plataformas desejadas. Esse processo gera novamente `lib/firebase_options.dart`. Para Android, confira também a configuração Firebase exigida pela plataforma em `android/app/`.
+
+## Roteiro resumido da demonstração
+
+1. Apresentar a estrutura de pastas e o ponto de entrada em `main.dart`.
+2. Mostrar cadastro ou login com e-mail e senha.
+3. Cadastrar pelo menos duas tarefas.
+4. Mostrar os filtros, editar uma tarefa, concluir outra e excluir uma tarefa.
+5. Alternar o tema e reabrir o aplicativo para mostrar a preferência salva.
+6. Mostrar os dados correspondentes no Firebase Realtime Database.
