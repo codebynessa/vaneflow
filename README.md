@@ -1,6 +1,7 @@
 # VaneFlow
 
-Aplicativo mobile de organização de tarefas desenvolvido com Flutter e Firebase como projeto da disciplina de Desenvolvimento de Aplicativo Mobile.
+Aplicativo mobile de organização de tarefas desenvolvido com Flutter e Firebase como projeto da disciplina de DPROGRAMAÇÃO PARA DISPOSITIVOS MÓVEIS - 6 2026 - 2
+
 
 O VaneFlow permite criar uma conta, organizar tarefas por data e prioridade, acompanhar o que está pendente ou concluído e escolher entre os temas claro e escuro.
 
@@ -114,11 +115,3 @@ O projeto contém `lib/firebase_options.dart` com as opções usadas durante o d
 
 Para conectar uma cópia do aplicativo a outro projeto Firebase, configure o Firebase CLI e o FlutterFire CLI, execute `flutterfire configure` na pasta do projeto e selecione as plataformas desejadas. Esse processo gera novamente `lib/firebase_options.dart`. Para Android, confira também a configuração Firebase exigida pela plataforma em `android/app/`.
 
-## Roteiro resumido da demonstração
-
-1. Apresentar a estrutura de pastas e o ponto de entrada em `main.dart`.
-2. Mostrar cadastro ou login com e-mail e senha.
-3. Cadastrar pelo menos duas tarefas.
-4. Mostrar os filtros, editar uma tarefa, concluir outra e excluir uma tarefa.
-5. Alternar o tema e reabrir o aplicativo para mostrar a preferência salva.
-6. Mostrar os dados correspondentes no Firebase Realtime Database.
